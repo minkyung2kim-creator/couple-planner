@@ -134,11 +134,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:#FFF5F7;color:var(--text);
 .event-chip{border-radius:10px;padding:8px 12px;font-size:13px;font-weight:500;border-left:4px solid}
 .event-chip.by-junpyo{background:var(--pink-light);border-left-color:var(--pink);color:#9D174D}
 .event-chip.by-minkyung{background:var(--blue-light);border-left-color:var(--blue);color:#1E40AF}
+.event-chip.by-together{background:var(--purple-light);border-left-color:var(--purple);color:#5B21B6}
 .event-chip-top{display:flex;align-items:center;gap:8px}
 .event-chip-title{flex:1}
 .event-author-tag{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;white-space:nowrap}
 .event-author-tag.junpyo{background:var(--pink);color:white}
 .event-author-tag.minkyung{background:var(--blue);color:white}
+.event-author-tag.together{background:var(--purple);color:white}
+.allday-banner.together{background:var(--purple-light);color:#5B21B6;border-left:3px solid var(--purple)}
+.cal-bar.together{background:var(--purple)}
+.todo-item.by-together{border-left-color:var(--purple)}
+.todo-author.together{color:var(--purple)}
 .event-actions{display:flex;gap:4px;flex-shrink:0}
 .e-act{background:none;border:none;font-size:15px;cursor:pointer;opacity:0.45;transition:opacity 0.15s;padding:0 2px;color:inherit}
 .e-act:hover{opacity:1}
@@ -284,6 +290,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:#FFF5F7;color:var(--text);
       <button class="type-btn" id="typeBtn-allday" onclick="selectType('allday')">🌙 하루 종일</button>
       <button class="type-btn" id="typeBtn-multi" onclick="selectType('multi')">📆 며칠간</button>
     </div>
+    <label>함께 하는 일정</label>
+    <button type="button" id="togetherBtn" onclick="toggleTogether()" style="width:100%;padding:10px 14px;border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);background:white;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;color:var(--text2);transition:all 0.15s;display:flex;align-items:center;gap:8px">
+      <span id="togetherIcon">🤍</span> <span id="togetherLabel">둘 다 참여하는 일정으로 표시</span>
+    </button>
     <label>일정 이름</label>
     <input type="text" id="eventTitle" placeholder="일정 이름 입력">
     <label>메모 (선택)</label>
@@ -353,6 +363,7 @@ let selectedDate = null, calYear, calMonth;
 let selectedTodoId = null, pendingImgBase64 = null;
 let editingEventId = null, editingEventDateKey = null;
 let currentEventType = 'timed';
+let isTogether = false;
 const today = new Date();
 
 function toKey(d) {
@@ -523,7 +534,7 @@ function renderCalendar() {
         const dots=document.createElement('div'); dots.className='cal-dots';
         singleEvs.slice(0,3).forEach(ev=>{
           const dot=document.createElement('div'); dot.className='cal-dot';
-          dot.style.background=(ev.author==='minkyung')?'#60A5FA':'#FF6B8A';
+          dot.style.background=(ev.author==='together')?'#A78BFA':(ev.author==='minkyung')?'#60A5FA':'#FF6B8A';
           dots.appendChild(dot);
         });
         cell.appendChild(dots);
@@ -550,7 +561,7 @@ function renderCalendar() {
       lanes[lane]=visEnd;
       const bar=document.createElement('div');
       const isStart=evStart>=weekStart; const isEnd=evEnd<=weekEnd;
-      let cls='cal-bar '+(ev.author==='minkyung'?'minkyung':'junpyo');
+      let cls='cal-bar '+(ev.author==='together'?'together':ev.author==='minkyung'?'minkyung':'junpyo');
       if(isStart&&isEnd) cls+=' bar-start bar-end';
       else if(isStart) cls+=' bar-start';
       else if(isEnd) cls+=' bar-end';
@@ -630,7 +641,7 @@ function renderTimeline() {
       const chip=document.createElement('div'); chip.className='event-chip by-'+author;
       chip.innerHTML='<div class="event-chip-top">'
         +'<span class="event-chip-title">'+String(h).padStart(2,'0')+':'+ev.min+' '+esc(ev.title)+'</span>'
-        +'<span class="event-author-tag '+author+'">'+(author==='junpyo'?'💗 준표':'💙 민경')+'</span>'
+        +'<span class="event-author-tag '+author+'">'+(author==='together'?'💜 함께':author==='junpyo'?'💗 준표':'💙 민경')+'</span>'
         +'<div class="event-actions">'
         +'<button class="e-act" onclick="openEventModal(\''+ev.id+'\',\''+selectedDate+'\')" title="수정">✏️</button>'
         +'<button class="e-act" onclick="deleteEvent(\''+selectedDate+'\',\''+ev.id+'\')" title="삭제">🗑</button>'
@@ -658,6 +669,20 @@ window.deleteEvent = function(dateKey,id) {
 };
 
 // ── EVENT MODAL ──
+window.toggleTogether = function() {
+  isTogether=!isTogether;
+  const btn=document.getElementById('togetherBtn');
+  const icon=document.getElementById('togetherIcon');
+  const label=document.getElementById('togetherLabel');
+  if(isTogether){
+    btn.style.borderColor='var(--purple)'; btn.style.background='var(--purple-light)'; btn.style.color='#5B21B6';
+    icon.textContent='💜'; label.textContent='둘 다 참여하는 일정 (보라색으로 표시)';
+  } else {
+    btn.style.borderColor='var(--gray-border)'; btn.style.background='white'; btn.style.color='var(--text2)';
+    icon.textContent='🤍'; label.textContent='둘 다 참여하는 일정으로 표시';
+  }
+};
+
 window.selectType = function(type) {
   currentEventType=type;
   ['timed','allday','multi'].forEach(t=>{
@@ -668,7 +693,7 @@ window.selectType = function(type) {
 
 window.openEventModal = function(evId, dateKey) {
   editingEventId=evId||null; editingEventDateKey=dateKey||null;
-  pendingImgBase64=null;
+  pendingImgBase64=null; isTogether=false;
   document.getElementById('imgPreviewThumb').style.display='none';
   document.getElementById('imgFileInput').value='';
   document.getElementById('eventTitle').value='';
@@ -677,6 +702,11 @@ window.openEventModal = function(evId, dateKey) {
   document.getElementById('eventAlldayDate').value=selectedDate;
   document.getElementById('eventStartDate').value=selectedDate;
   document.getElementById('eventEndDate').value=selectedDate;
+  // reset together btn
+  const tbtn=document.getElementById('togetherBtn');
+  tbtn.style.borderColor='var(--gray-border)'; tbtn.style.background='white'; tbtn.style.color='var(--text2)';
+  document.getElementById('togetherIcon').textContent='🤍';
+  document.getElementById('togetherLabel').textContent='둘 다 참여하는 일정으로 표시';
 
   // populate todo list
   const list=document.getElementById('todoSelectList'); list.innerHTML='';
@@ -692,7 +722,6 @@ window.openEventModal = function(evId, dateKey) {
   });
 
   if(evId && dateKey) {
-    // editing
     const ev=(events[dateKey]||{})[evId];
     if(!ev) return;
     document.getElementById('eventModalTitle').textContent='✏️ 일정 수정';
@@ -713,6 +742,7 @@ window.openEventModal = function(evId, dateKey) {
     }
     if(ev.todoId){ selectedTodoId=ev.todoId; document.querySelectorAll('.todo-select-item').forEach(x=>{ if(x.textContent.includes(todos[ev.todoId]?.text)) x.classList.add('selected'); }); }
     if(ev.image){ document.getElementById('imgPreviewThumb').src=ev.image; document.getElementById('imgPreviewThumb').style.display='block'; pendingImgBase64=ev.image; }
+    if(ev.author==='together'){ isTogether=true; toggleTogether(); }
   } else {
     document.getElementById('eventModalTitle').textContent='📅 일정 추가';
     document.getElementById('eventConfirmBtn').textContent='추가하기';
@@ -753,7 +783,7 @@ window.confirmEvent = function() {
   const memo=document.getElementById('eventMemo').value.trim();
   setSyncStatus('syncing');
 
-  let evData={title,memo:memo||null,todoId:selectedTodoId||null,author:currentUser,type:currentEventType};
+  let evData={title,memo:memo||null,todoId:selectedTodoId||null,author:isTogether?'together':currentUser,type:currentEventType};
   if(pendingImgBase64) evData.image=pendingImgBase64;
 
   let dateKey=selectedDate;
