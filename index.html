@@ -7,258 +7,241 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --pink: #FF6B8A; --pink-light: #FFE8ED; --pink-mid: #FFB3C1;
-  --purple: #A78BFA; --purple-light: #EDE9FE;
-  --green: #34D399; --green-light: #D1FAE5;
-  --yellow: #FBBF24; --yellow-light: #FEF3C7;
-  --gray-light: #F3F4F6; --gray-border: #E5E7EB;
-  --text: #1F2937; --text2: #6B7280;
-  --radius: 14px; --radius-sm: 8px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#FF6B8A;--pink-light:#FFE8ED;--pink-mid:#FFB3C1;
+  --blue:#60A5FA;--blue-light:#EFF6FF;--blue-mid:#BFDBFE;
+  --purple:#A78BFA;--purple-light:#EDE9FE;
+  --green:#34D399;--green-light:#D1FAE5;
+  --yellow:#FBBF24;--yellow-light:#FEF3C7;
+  --gray-light:#F3F4F6;--gray-border:#E5E7EB;
+  --text:#1F2937;--text2:#6B7280;
+  --radius:14px;--radius-sm:8px;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 30px rgba(0,0,0,0.12);
 }
-html { scroll-behavior: smooth; }
-body { font-family: 'Noto Sans KR', sans-serif; background: #FFF5F7; color: var(--text); min-height: 100vh; }
+body{font-family:'Noto Sans KR',sans-serif;background:#FFF5F7;color:var(--text);min-height:100vh}
 
-.topbar {
-  background: white; border-bottom: 1px solid var(--gray-border);
-  padding: 0 1rem; position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 56px; box-shadow: 0 1px 8px rgba(255,107,138,0.08);
-}
-.topbar-title { font-size: 17px; font-weight: 700; color: var(--pink); }
-.sync-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
-.sync-dot { width: 8px; height: 8px; border-radius: 50%; background: #D1D5DB; transition: background 0.3s; }
-.sync-dot.connected { background: var(--green); box-shadow: 0 0 6px rgba(52,211,153,0.5); }
-.sync-dot.syncing { background: var(--yellow); animation: pulse 1s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+/* TOPBAR */
+.topbar{background:white;border-bottom:1px solid var(--gray-border);padding:0 1rem;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:56px;box-shadow:0 1px 8px rgba(255,107,138,0.08)}
+.topbar-title{font-size:17px;font-weight:700;color:var(--pink)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.sync-status{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#D1D5DB;transition:background 0.3s}
+.sync-dot.connected{background:var(--green);box-shadow:0 0 5px rgba(52,211,153,0.5)}
+.sync-dot.syncing{background:var(--yellow);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.user-selector{display:flex;gap:5px}
+.user-btn{padding:5px 11px;border-radius:99px;border:2px solid transparent;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;transition:all 0.15s}
+.user-btn.junpyo{background:var(--pink-light);color:var(--pink);border-color:var(--pink-light)}
+.user-btn.junpyo.active{border-color:var(--pink)}
+.user-btn.minkyung{background:var(--blue-light);color:var(--blue);border-color:var(--blue-light)}
+.user-btn.minkyung.active{border-color:var(--blue)}
 
-.tabs { display: flex; background: white; border-bottom: 1px solid var(--gray-border); padding: 0 1rem; }
-.tab {
-  flex: 1; padding: 12px 8px; background: none; border: none;
-  border-bottom: 2px solid transparent; font-size: 14px; font-weight: 500;
-  font-family: inherit; color: var(--text2); cursor: pointer; transition: all 0.15s;
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-}
-.tab.active { color: var(--pink); border-bottom-color: var(--pink); }
+/* TABS */
+.tabs{display:flex;background:white;border-bottom:1px solid var(--gray-border)}
+.tab{flex:1;padding:11px 6px;background:none;border:none;border-bottom:2px solid transparent;font-size:13px;font-weight:500;font-family:inherit;color:var(--text2);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:4px}
+.tab.active{color:var(--pink);border-bottom-color:var(--pink)}
+.page{display:none;padding:1rem;max-width:640px;margin:0 auto}
+.page.active{display:block}
 
-.page { display: none; padding: 1rem; max-width: 640px; margin: 0 auto; }
-.page.active { display: block; }
+/* QUICK ADD */
+.quick-add{background:white;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);margin-bottom:1rem;display:flex;gap:8px}
+.quick-add input{flex:1;border:1.5px solid var(--gray-border);border-radius:99px;padding:10px 16px;font-size:14px;font-family:inherit;outline:none;color:var(--text);transition:border-color 0.15s}
+.quick-add input:focus{border-color:var(--pink)}
+.quick-add input::placeholder{color:var(--text2)}
+.add-btn{width:42px;height:42px;border-radius:50%;background:var(--pink);color:white;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;box-shadow:0 3px 12px rgba(255,107,138,0.4);flex-shrink:0}
+.add-btn:hover{background:#e55a7a;transform:scale(1.05)}
 
-.quick-add {
-  background: white; border-radius: var(--radius); padding: 1rem;
-  box-shadow: var(--shadow); margin-bottom: 1rem; display: flex; gap: 8px;
-}
-.quick-add input {
-  flex: 1; border: 1.5px solid var(--gray-border); border-radius: 99px;
-  padding: 10px 16px; font-size: 14px; font-family: inherit; outline: none;
-  color: var(--text); transition: border-color 0.15s;
-}
-.quick-add input:focus { border-color: var(--pink); }
-.quick-add input::placeholder { color: var(--text2); }
-.add-btn {
-  width: 42px; height: 42px; border-radius: 50%; background: var(--pink);
-  color: white; border: none; font-size: 22px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s; box-shadow: 0 3px 12px rgba(255,107,138,0.4);
-}
-.add-btn:hover { background: #e55a7a; transform: scale(1.05); }
+/* STATUS GROUPS */
+.status-group{margin-bottom:1.25rem}
+.status-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;font-weight:700;color:var(--text2)}
+.status-hdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-count{margin-left:auto;background:var(--gray-light);color:var(--text2);font-size:11px;padding:2px 8px;border-radius:99px}
+.todo-item{background:white;border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 4px rgba(0,0,0,0.05);border-left:4px solid var(--gray-border)}
+.todo-item.done{opacity:0.55}
+.todo-item.by-junpyo{border-left-color:var(--pink)}
+.todo-item.by-minkyung{border-left-color:var(--blue)}
+.todo-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--gray-border);background:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-size:12px;color:white}
+.todo-check:hover{border-color:var(--pink)}
+.todo-check.done{background:var(--green);border-color:var(--green)}
+.todo-info{flex:1;min-width:0}
+.todo-text{font-size:14px;line-height:1.5}
+.todo-item.done .todo-text{text-decoration:line-through;color:var(--text2)}
+.todo-author{font-size:11px;font-weight:700;margin-top:2px}
+.todo-author.junpyo{color:var(--pink)}
+.todo-author.minkyung{color:var(--blue)}
+.status-badge{font-size:11px;padding:3px 9px;border-radius:99px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.badge-need{background:var(--yellow-light);color:#92400E}
+.badge-scheduled{background:var(--purple-light);color:#5B21B6}
+.badge-done{background:var(--green-light);color:#065F46}
+.todo-del{width:28px;height:28px;border-radius:6px;border:1px solid var(--gray-border);background:none;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all 0.15s;flex-shrink:0}
+.todo-del:hover{background:#FEE2E2;color:#DC2626;border-color:#FECACA}
 
-.status-group { margin-bottom: 1.25rem; }
-.status-header {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
-  font-size: 13px; font-weight: 700; color: var(--text2);
-}
-.status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.status-count { margin-left: auto; background: var(--gray-light); color: var(--text2); font-size: 11px; padding: 2px 8px; border-radius: 99px; }
+/* CALENDAR */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;background:white;border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:0.75rem}
+.cal-nav-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--gray-border);background:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.cal-nav-btn:hover{background:var(--pink-light)}
+.cal-title{font-size:16px;font-weight:700}
 
-.todo-item {
-  background: white; border-radius: var(--radius-sm); padding: 12px 14px;
-  margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05); transition: all 0.15s;
-}
-.todo-item.done { opacity: 0.55; }
-.todo-check {
-  width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--gray-border);
-  background: none; cursor: pointer; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s; font-size: 12px; color: white;
-}
-.todo-check:hover { border-color: var(--pink); }
-.todo-check.done { background: var(--green); border-color: var(--green); }
-.todo-text { flex: 1; font-size: 14px; line-height: 1.5; }
-.todo-item.done .todo-text { text-decoration: line-through; color: var(--text2); }
-.status-badge { font-size: 11px; padding: 3px 9px; border-radius: 99px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
-.badge-need { background: var(--yellow-light); color: #92400E; }
-.badge-scheduled { background: var(--purple-light); color: #5B21B6; }
-.badge-done { background: var(--green-light); color: #065F46; }
-.todo-del {
-  width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--gray-border);
-  background: none; font-size: 14px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text2); transition: all 0.15s; flex-shrink: 0;
-}
-.todo-del:hover { background: #FEE2E2; color: #DC2626; border-color: #FECACA; }
+/* CALENDAR GRID */
+.cal-grid-wrap{background:white;border-radius:var(--radius);padding:10px;box-shadow:var(--shadow);margin-bottom:1rem;overflow:hidden}
+.cal-daynames{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:4px}
+.cal-dayname{text-align:center;font-size:11px;color:var(--text2);font-weight:500;padding:4px 0}
+.cal-weeks{display:flex;flex-direction:column;gap:2px}
+.cal-week{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-day{position:relative;display:flex;flex-direction:column;align-items:center;min-height:48px;padding-top:4px}
+.cal-day-num{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:13px;cursor:pointer;transition:all 0.15s;flex-shrink:0;z-index:2;position:relative}
+.cal-day-num:hover{background:var(--pink-light)}
+.cal-day-num.today{background:var(--pink);color:white;font-weight:700}
+.cal-day-num.selected{background:var(--pink-light);color:var(--pink);font-weight:700;border:2px solid var(--pink)}
+.cal-day.other-month .cal-day-num{color:var(--gray-border)}
 
-.cal-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  background: white; border-radius: var(--radius); padding: 12px 16px;
-  box-shadow: var(--shadow); margin-bottom: 1rem;
-}
-.cal-nav-btn {
-  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gray-border);
-  background: none; font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s; color: var(--text);
-}
-.cal-nav-btn:hover { background: var(--pink-light); border-color: var(--pink-mid); }
-.cal-title { font-size: 16px; font-weight: 700; }
+/* DOTS for single-day events */
+.cal-dots{display:flex;gap:2px;justify-content:center;margin-top:2px;flex-wrap:wrap;max-width:28px}
+.cal-dot{width:5px;height:5px;border-radius:50%}
 
-.week-grid {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
-  background: white; border-radius: var(--radius); padding: 12px;
-  box-shadow: var(--shadow); margin-bottom: 1rem;
-}
-.week-day-label { text-align: center; font-size: 11px; color: var(--text2); font-weight: 500; padding: 4px 0; }
-.week-day {
-  aspect-ratio: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; border-radius: 50%;
-  font-size: 13px; cursor: pointer; transition: all 0.15s; position: relative;
-}
-.week-day:hover { background: var(--pink-light); }
-.week-day.today { background: var(--pink); color: white; font-weight: 700; }
-.week-day.selected { background: var(--pink-light); color: var(--pink); font-weight: 700; border: 2px solid var(--pink); }
-.week-day.other-month { color: var(--gray-border); }
-.dot-row { display: flex; gap: 2px; position: absolute; bottom: 3px; }
-.edot { width: 4px; height: 4px; border-radius: 50%; background: var(--pink); }
-.week-day.today .edot { background: white; }
+/* MULTI-DAY BARS */
+.cal-bars{position:absolute;top:34px;left:0;right:0;display:flex;flex-direction:column;gap:2px;pointer-events:none;z-index:1}
+.cal-bar{height:7px;border-radius:99px;pointer-events:auto;cursor:pointer;opacity:0.85;transition:opacity 0.15s}
+.cal-bar:hover{opacity:1}
+.cal-bar.junpyo{background:var(--pink)}
+.cal-bar.minkyung{background:var(--blue)}
+/* bar spanning: starts/ends/middle */
+.cal-bar.bar-start{border-top-left-radius:99px;border-bottom-left-radius:99px;margin-left:4px}
+.cal-bar.bar-end{border-top-right-radius:99px;border-bottom-right-radius:99px;margin-right:4px}
+.cal-bar.bar-mid{border-radius:0}
 
-.time-slot-header {
-  font-size: 13px; font-weight: 700; color: var(--text2);
-  margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;
-}
-.add-event-btn {
-  display: flex; align-items: center; gap: 5px; padding: 6px 14px;
-  background: var(--pink); color: white; border: none; border-radius: 99px;
-  font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer;
-  box-shadow: 0 2px 8px rgba(255,107,138,0.3); transition: all 0.15s;
-}
-.add-event-btn:hover { background: #e55a7a; }
-.timeline { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.time-row { display: flex; min-height: 52px; border-bottom: 1px solid var(--gray-border); }
-.time-row:last-child { border-bottom: none; }
-.time-row:hover { background: #FAFAFA; }
-.time-label {
-  width: 52px; flex-shrink: 0; padding: 10px 10px 8px 14px;
-  font-size: 11px; color: var(--text2); font-weight: 500;
-  border-right: 1px solid var(--gray-border);
-}
-.time-events { flex: 1; padding: 6px 10px; display: flex; flex-direction: column; gap: 4px; }
-.event-chip {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--purple-light); border-left: 3px solid var(--purple);
-  border-radius: 6px; padding: 6px 10px; font-size: 13px; color: #4C1D95; font-weight: 500;
-}
-.event-chip .e-badge { font-size: 10px; padding: 1px 7px; border-radius: 99px; background: white; color: #5B21B6; }
-.event-chip .e-del { margin-left: auto; color: #7C3AED; font-size: 18px; cursor: pointer; opacity: 0.5; background: none; border: none; transition: opacity 0.15s; }
-.event-chip .e-del:hover { opacity: 1; }
+/* ALLDAY BANNER */
+.allday-banner{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:4px;cursor:pointer;transition:all 0.15s}
+.allday-banner.junpyo{background:var(--pink-light);color:#9D174D;border-left:3px solid var(--pink)}
+.allday-banner.minkyung{background:var(--blue-light);color:#1E40AF;border-left:3px solid var(--blue)}
+.allday-section{background:white;border-radius:var(--radius-sm);padding:8px 10px;margin-bottom:8px;border:1px solid var(--gray-border)}
+.allday-label{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px}
 
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.35); z-index: 200;
-  align-items: center; justify-content: center; padding: 1rem;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: white; border-radius: 20px; padding: 1.5rem;
-  width: 100%; max-width: 420px; box-shadow: var(--shadow-lg);
-  animation: popIn 0.2s ease;
-}
-@keyframes popIn { from{transform:scale(0.9);opacity:0} to{transform:scale(1);opacity:1} }
-.modal-title { font-size: 17px; font-weight: 700; margin-bottom: 1.25rem; }
-.modal label {
-  display: block; font-size: 12px; font-weight: 700; color: var(--text2);
-  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; margin-top: 14px;
-}
-.modal label:first-of-type { margin-top: 0; }
-.modal input, .modal select {
-  width: 100%; border: 1.5px solid var(--gray-border); border-radius: var(--radius-sm);
-  padding: 10px 14px; font-size: 14px; font-family: inherit;
-  outline: none; color: var(--text); transition: border-color 0.15s;
-}
-.modal input:focus, .modal select:focus { border-color: var(--pink); }
-.todo-select-list { border: 1.5px solid var(--gray-border); border-radius: var(--radius-sm); max-height: 160px; overflow-y: auto; }
-.todo-select-item {
-  padding: 9px 14px; font-size: 14px; cursor: pointer;
-  border-bottom: 1px solid var(--gray-border); transition: background 0.1s;
-}
-.todo-select-item:last-child { border-bottom: none; }
-.todo-select-item:hover { background: var(--pink-light); }
-.todo-select-item.selected { background: var(--pink-light); color: var(--pink); font-weight: 500; }
-.modal-btns { display: flex; gap: 8px; margin-top: 1.25rem; }
-.modal-cancel {
-  flex: 1; padding: 11px; border: 1.5px solid var(--gray-border);
-  border-radius: var(--radius-sm); background: none; font-size: 14px;
-  font-family: inherit; color: var(--text2); cursor: pointer;
-}
-.modal-cancel:hover { background: var(--gray-light); }
-.modal-confirm {
-  flex: 2; padding: 11px; background: var(--pink); color: white; border: none;
-  border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
-  font-family: inherit; cursor: pointer; box-shadow: 0 3px 12px rgba(255,107,138,0.35);
-}
-.modal-confirm:hover { background: #e55a7a; }
+/* TIMELINE */
+.time-slot-header{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.add-event-btn{display:flex;align-items:center;gap:5px;padding:6px 14px;background:var(--pink);color:white;border:none;border-radius:99px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;box-shadow:0 2px 8px rgba(255,107,138,0.3);transition:all 0.15s}
+.add-event-btn:hover{background:#e55a7a}
+.timeline{background:white;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.time-row{display:flex;min-height:52px;border-bottom:1px solid var(--gray-border)}
+.time-row:last-child{border-bottom:none}
+.time-row:hover{background:#FAFAFA}
+.time-label{width:52px;flex-shrink:0;padding:10px 10px 8px 14px;font-size:11px;color:var(--text2);font-weight:500;border-right:1px solid var(--gray-border)}
+.time-events{flex:1;padding:6px 10px;display:flex;flex-direction:column;gap:6px}
 
-.toast {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: #1F2937; color: white; padding: 10px 20px;
-  border-radius: 99px; font-size: 13px; font-weight: 500;
-  z-index: 999; transition: transform 0.25s ease; white-space: nowrap;
-}
-.toast.show { transform: translateX(-50%) translateY(0); }
+/* EVENT CHIP */
+.event-chip{border-radius:10px;padding:8px 12px;font-size:13px;font-weight:500;border-left:4px solid}
+.event-chip.by-junpyo{background:var(--pink-light);border-left-color:var(--pink);color:#9D174D}
+.event-chip.by-minkyung{background:var(--blue-light);border-left-color:var(--blue);color:#1E40AF}
+.event-chip-top{display:flex;align-items:center;gap:8px}
+.event-chip-title{flex:1}
+.event-author-tag{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;white-space:nowrap}
+.event-author-tag.junpyo{background:var(--pink);color:white}
+.event-author-tag.minkyung{background:var(--blue);color:white}
+.event-actions{display:flex;gap:4px;flex-shrink:0}
+.e-act{background:none;border:none;font-size:15px;cursor:pointer;opacity:0.45;transition:opacity 0.15s;padding:0 2px;color:inherit}
+.e-act:hover{opacity:1}
+.event-badge{font-size:10px;padding:1px 7px;border-radius:99px;background:white;display:inline-block;margin-top:4px}
+.event-badge.junpyo{color:#9D174D}
+.event-badge.minkyung{color:#1E40AF}
+.event-img-wrap{margin-top:8px}
+.event-img{width:100%;max-height:180px;object-fit:cover;border-radius:8px;display:block;cursor:pointer}
 
-.empty { text-align: center; padding: 2.5rem 1rem; color: var(--text2); font-size: 14px; line-height: 1.8; }
-.empty-icon { font-size: 36px; display: block; margin-bottom: 8px; }
+/* PHOTOS TAB */
+.photos-month{margin-bottom:1.5rem}
+.photos-month-title{font-size:14px;font-weight:700;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.photos-date-group{margin-bottom:1rem}
+.photos-date-label{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.photos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.photo-thumb{aspect-ratio:1;object-fit:cover;border-radius:8px;cursor:pointer;width:100%;display:block;transition:transform 0.15s}
+.photo-thumb:hover{transform:scale(1.03)}
+.photo-upload-area{aspect-ratio:1;border:2px dashed var(--gray-border);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s;color:var(--text2);font-size:12px;gap:4px}
+.photo-upload-area:hover{border-color:var(--pink);background:var(--pink-light);color:var(--pink)}
+.photo-upload-area input{display:none}
+.no-photos{text-align:center;padding:2.5rem 1rem;color:var(--text2);font-size:14px;line-height:1.8}
 
-.loading-screen {
-  position: fixed; inset: 0; background: #FFF5F7;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  z-index: 999; gap: 12px; font-family: 'Noto Sans KR', sans-serif;
-}
-.loading-screen.hide { display: none; }
-.loading-spinner {
-  width: 36px; height: 36px; border: 3px solid var(--pink-mid);
-  border-top-color: var(--pink); border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { font-size: 14px; color: var(--text2); }
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:20px;padding:1.5rem;width:100%;max-width:440px;box-shadow:var(--shadow-lg);animation:popIn 0.2s ease;max-height:92vh;overflow-y:auto}
+@keyframes popIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-title{font-size:17px;font-weight:700;margin-bottom:1.25rem}
+.modal label{display:block;font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;margin-top:14px}
+.modal label:first-of-type{margin-top:0}
+.modal input,.modal select,.modal textarea{width:100%;border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;font-family:inherit;outline:none;color:var(--text);transition:border-color 0.15s}
+.modal input:focus,.modal select:focus,.modal textarea:focus{border-color:var(--pink)}
+.modal textarea{resize:vertical;min-height:60px}
+.type-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:0}
+.type-btn{padding:9px 6px;border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);background:white;font-size:12px;font-weight:500;font-family:inherit;cursor:pointer;transition:all 0.15s;text-align:center}
+.type-btn.active{border-color:var(--pink);background:var(--pink-light);color:var(--pink)}
+.date-row{display:flex;gap:8px}
+.date-row input{flex:1}
+.time-row-modal{display:flex;gap:8px}
+.time-row-modal select{flex:1}
+.img-upload-area{border:2px dashed var(--gray-border);border-radius:var(--radius-sm);padding:1rem;text-align:center;cursor:pointer;transition:all 0.15s;color:var(--text2);font-size:13px}
+.img-upload-area:hover{border-color:var(--pink);background:var(--pink-light)}
+.img-upload-area input{display:none}
+.img-preview-thumb{width:100%;max-height:130px;object-fit:cover;border-radius:8px;margin-top:8px;display:none}
+.todo-select-list{border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);max-height:130px;overflow-y:auto}
+.todo-select-item{padding:9px 14px;font-size:14px;cursor:pointer;border-bottom:1px solid var(--gray-border);transition:background 0.1s}
+.todo-select-item:last-child{border-bottom:none}
+.todo-select-item:hover{background:var(--pink-light)}
+.todo-select-item.selected{background:var(--pink-light);color:var(--pink);font-weight:500}
+.modal-btns{display:flex;gap:8px;margin-top:1.25rem}
+.modal-cancel{flex:1;padding:11px;border:1.5px solid var(--gray-border);border-radius:var(--radius-sm);background:none;font-size:14px;font-family:inherit;color:var(--text2);cursor:pointer}
+.modal-cancel:hover{background:var(--gray-light)}
+.modal-confirm{flex:2;padding:11px;background:var(--pink);color:white;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 3px 12px rgba(255,107,138,0.35)}
+.modal-confirm:hover{background:#e55a7a}
+
+/* IMG PREVIEW */
+.img-preview-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:300;align-items:center;justify-content:center;padding:1rem}
+.img-preview-overlay.open{display:flex}
+.img-preview-overlay img{max-width:100%;max-height:90vh;border-radius:12px}
+.img-preview-close{position:absolute;top:16px;right:16px;width:36px;height:36px;background:white;border:none;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:301}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1F2937;color:white;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;z-index:999;transition:transform 0.25s ease;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--text2);font-size:14px;line-height:1.8}
+.empty-icon{font-size:36px;display:block;margin-bottom:8px}
+.loading-screen{position:fixed;inset:0;background:#FFF5F7;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:12px}
+.loading-screen.hide{display:none}
+.loading-spinner{width:36px;height:36px;border:3px solid var(--pink-mid);border-top-color:var(--pink);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--text2)}
+.section-hidden{display:none}
 </style>
 </head>
 <body>
 
 <div class="loading-screen" id="loadingScreen">
-  <div style="font-size:36px;">💑</div>
+  <div style="font-size:36px">💑</div>
   <div class="loading-spinner"></div>
   <div class="loading-text">데이터 불러오는 중...</div>
 </div>
 
 <div class="topbar">
   <div class="topbar-title">💑 우리 일정</div>
-  <div class="sync-status">
-    <div class="sync-dot" id="syncDot"></div>
-    <span id="syncLabel">연결 중...</span>
+  <div class="topbar-right">
+    <div class="user-selector">
+      <button class="user-btn junpyo" id="btn-junpyo" onclick="switchUser('junpyo')">💗 준표</button>
+      <button class="user-btn minkyung" id="btn-minkyung" onclick="switchUser('minkyung')">💙 민경</button>
+    </div>
+    <div class="sync-status">
+      <div class="sync-dot" id="syncDot"></div>
+      <span id="syncLabel">연결 중</span>
+    </div>
   </div>
 </div>
 
 <div class="tabs">
   <button class="tab active" onclick="switchPage('todo')" id="tab-todo">✅ 할 일</button>
   <button class="tab" onclick="switchPage('cal')" id="tab-cal">📅 일정</button>
+  <button class="tab" onclick="switchPage('photos')" id="tab-photos">📸 사진</button>
 </div>
 
+<!-- TODO -->
 <div class="page active" id="page-todo">
   <div class="quick-add">
     <input type="text" id="todoInput" placeholder="할 일 추가하기..." onkeydown="if(event.key==='Enter')addTodo()">
@@ -267,44 +250,90 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #FFF5F7; color: var(
   <div id="todoList"></div>
 </div>
 
+<!-- CALENDAR -->
 <div class="page" id="page-cal">
   <div class="cal-nav">
     <button class="cal-nav-btn" onclick="changeMonth(-1)">&#8249;</button>
     <div class="cal-title" id="calTitle"></div>
     <button class="cal-nav-btn" onclick="changeMonth(1)">&#8250;</button>
   </div>
-  <div class="week-grid" id="weekGrid"></div>
+  <div class="cal-grid-wrap">
+    <div class="cal-daynames" id="calDaynames"></div>
+    <div class="cal-weeks" id="calWeeks"></div>
+  </div>
   <div class="time-slot-header">
     <span id="selectedDateLabel">오늘 일정</span>
-    <button class="add-event-btn" onclick="openEventModal()">+ 일정 추가</button>
+    <button class="add-event-btn" onclick="openEventModal(null)">+ 일정 추가</button>
   </div>
+  <div id="alldaySection"></div>
   <div class="timeline" id="timeline"></div>
 </div>
 
+<!-- PHOTOS -->
+<div class="page" id="page-photos">
+  <div id="photosList"></div>
+</div>
+
+<!-- EVENT MODAL -->
 <div class="modal-overlay" id="eventModal">
   <div class="modal">
-    <div class="modal-title">📅 일정 추가</div>
+    <div class="modal-title" id="eventModalTitle">📅 일정 추가</div>
+    <label>일정 유형</label>
+    <div class="type-btns">
+      <button class="type-btn active" id="typeBtn-timed" onclick="selectType('timed')">⏰ 시간 지정</button>
+      <button class="type-btn" id="typeBtn-allday" onclick="selectType('allday')">🌙 하루 종일</button>
+      <button class="type-btn" id="typeBtn-multi" onclick="selectType('multi')">📆 며칠간</button>
+    </div>
     <label>일정 이름</label>
     <input type="text" id="eventTitle" placeholder="일정 이름 입력">
-    <label>시간</label>
-    <div style="display:flex;gap:8px;">
-      <select id="eventHour" style="flex:1;"></select>
-      <select id="eventMin" style="flex:1;"></select>
+    <label>메모 (선택)</label>
+    <textarea id="eventMemo" placeholder="메모를 입력하세요..."></textarea>
+    <div id="timedFields">
+      <label>날짜</label>
+      <input type="date" id="eventDate">
+      <label>시간</label>
+      <div class="time-row-modal">
+        <select id="eventHour"></select>
+        <select id="eventMin"></select>
+      </div>
     </div>
+    <div id="alldayFields" class="section-hidden">
+      <label>날짜</label>
+      <input type="date" id="eventAlldayDate">
+    </div>
+    <div id="multiFields" class="section-hidden">
+      <label>시작일 ~ 종료일</label>
+      <div class="date-row">
+        <input type="date" id="eventStartDate">
+        <input type="date" id="eventEndDate">
+      </div>
+    </div>
+    <label>사진 첨부 (선택)</label>
+    <div class="img-upload-area" onclick="document.getElementById('imgFileInput').click()">
+      <input type="file" id="imgFileInput" accept="image/*" onchange="handleImgSelect(event)">
+      📷 사진을 선택하세요
+    </div>
+    <img id="imgPreviewThumb" class="img-preview-thumb">
     <label>할 일 연결 (선택)</label>
     <div class="todo-select-list" id="todoSelectList"></div>
     <div class="modal-btns">
       <button class="modal-cancel" onclick="closeEventModal()">취소</button>
-      <button class="modal-confirm" onclick="confirmEvent()">추가하기</button>
+      <button class="modal-confirm" id="eventConfirmBtn" onclick="confirmEvent()">추가하기</button>
     </div>
   </div>
+</div>
+
+<!-- IMG PREVIEW -->
+<div class="img-preview-overlay" id="imgPreviewOverlay" onclick="closeImgPreview()">
+  <button class="img-preview-close" onclick="closeImgPreview()">✕</button>
+  <img id="imgPreviewFull">
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getDatabase, ref, onValue, set, remove, update } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
+import { getDatabase, ref, onValue, set, remove, update, push } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVM3lOyUnz8CiBB2RUisO87DS2n9-hLwg",
@@ -315,262 +344,586 @@ const firebaseConfig = {
   messagingSenderId: "920744412875",
   appId: "1:920744412875:web:2f7c1ce9693be0ef26bd4e"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-let todos = {};
-let events = {};
-let selectedDate = null;
-let calYear, calMonth;
-let selectedTodoId = null;
+let currentUser = localStorage.getItem('couple_user') || 'junpyo';
+let todos = {}, events = {}, photos = {};
+let selectedDate = null, calYear, calMonth;
+let selectedTodoId = null, pendingImgBase64 = null;
+let editingEventId = null, editingEventDateKey = null;
+let currentEventType = 'timed';
 const today = new Date();
 
 function toKey(d) {
+  if (typeof d === 'string') return d;
   return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
+function keyToDate(k) { const p = k.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 function setSyncStatus(s) {
-  const dot = document.getElementById('syncDot');
-  const lbl = document.getElementById('syncLabel');
-  if (s === 'connected')   { dot.className = 'sync-dot connected'; lbl.textContent = '실시간 연결됨 ✓'; }
-  else if (s === 'syncing') { dot.className = 'sync-dot syncing';   lbl.textContent = '동기화 중...'; }
-  else                      { dot.className = 'sync-dot';           lbl.textContent = '연결 중...'; }
+  const dot=document.getElementById('syncDot'),lbl=document.getElementById('syncLabel');
+  if(s==='connected'){dot.className='sync-dot connected';lbl.textContent='연결됨 ✓';}
+  else if(s==='syncing'){dot.className='sync-dot syncing';lbl.textContent='동기화 중';}
+  else{dot.className='sync-dot';lbl.textContent='연결 중';}
 }
 
-// Firebase 실시간 리스너
-onValue(ref(db, 'todos'), (snap) => {
-  todos = snap.val() || {};
-  renderTodos();
-  renderTimeline();
+window.switchUser = function(u) {
+  currentUser = u;
+  localStorage.setItem('couple_user', u);
+  document.getElementById('btn-junpyo').classList.toggle('active', u==='junpyo');
+  document.getElementById('btn-minkyung').classList.toggle('active', u==='minkyung');
+  showToast((u==='junpyo'?'💗 준표':'💙 민경')+' 모드로 전환됐어요!');
+};
+document.getElementById('btn-'+currentUser).classList.add('active');
+
+// Firebase
+onValue(ref(db,'todos'), snap => {
+  todos = snap.val()||{};
+  renderTodos(); renderTimeline();
   document.getElementById('loadingScreen').classList.add('hide');
   setSyncStatus('connected');
 });
-onValue(ref(db, 'events'), (snap) => {
-  events = snap.val() || {};
-  renderCalendar();
-  renderTimeline();
+onValue(ref(db,'events'), snap => {
+  events = snap.val()||{};
+  renderCalendar(); renderTimeline(); renderAlldaySection();
+});
+onValue(ref(db,'photos'), snap => {
+  photos = snap.val()||{};
+  if(document.getElementById('page-photos').classList.contains('active')) renderPhotos();
 });
 
 // ── TODOS ──
 window.addTodo = function() {
-  const inp = document.getElementById('todoInput');
-  const txt = inp.value.trim();
-  if (!txt) return;
-  const id = 't' + Date.now();
+  const inp=document.getElementById('todoInput');
+  const txt=inp.value.trim(); if(!txt) return;
+  const id='t'+Date.now();
   setSyncStatus('syncing');
-  set(ref(db, 'todos/' + id), { id, text: txt, status: 'need' });
-  inp.value = '';
+  set(ref(db,'todos/'+id),{id,text:txt,status:'need',author:currentUser});
+  inp.value='';
 };
-
 window.deleteTodo = function(id) {
   setSyncStatus('syncing');
-  Object.keys(events).forEach(dk => {
-    Object.entries(events[dk] || {}).forEach(([ek, e]) => {
-      if (e.todoId === id) remove(ref(db, 'events/' + dk + '/' + ek));
-    });
+  Object.keys(events).forEach(dk=>{
+    Object.entries(events[dk]||{}).forEach(([ek,e])=>{ if(e.todoId===id) remove(ref(db,'events/'+dk+'/'+ek)); });
   });
-  remove(ref(db, 'todos/' + id));
+  remove(ref(db,'todos/'+id));
 };
-
 window.toggleDone = function(id) {
-  const t = todos[id]; if (!t) return;
+  const t=todos[id]; if(!t) return;
   setSyncStatus('syncing');
-  update(ref(db, 'todos/' + id), { status: t.status === 'done' ? 'need' : 'done' });
+  update(ref(db,'todos/'+id),{status:t.status==='done'?'need':'done'});
 };
-
 function renderTodos() {
-  const groups = {
-    need:      { label: '진행 필요', color: '#FBBF24', items: [] },
-    scheduled: { label: '진행 예정', color: '#A78BFA', items: [] },
-    done:      { label: '진행 완료', color: '#34D399', items: [] },
-  };
-  Object.values(todos).forEach(t => { if (groups[t.status]) groups[t.status].items.push(t); });
-  const container = document.getElementById('todoList');
-  container.innerHTML = '';
-  let hasAny = false;
-  Object.entries(groups).forEach(([key, g]) => {
-    if (!g.items.length) return;
-    hasAny = true;
-    const wrap = document.createElement('div');
-    wrap.className = 'status-group';
-    wrap.innerHTML = '<div class="status-header"><div class="status-dot" style="background:' + g.color + '"></div>' + g.label + '<span class="status-count">' + g.items.length + '</span></div>';
-    g.items.forEach(t => {
-      const badgeClass = { need:'badge-need', scheduled:'badge-scheduled', done:'badge-done' }[t.status];
-      const badgeLabel = { need:'진행 필요', scheduled:'진행 예정', done:'진행 완료' }[t.status];
-      const div = document.createElement('div');
-      div.className = 'todo-item' + (t.status === 'done' ? ' done' : '');
-      div.innerHTML = '<button class="todo-check ' + (t.status==='done'?'done':'') + '" onclick="toggleDone(\'' + t.id + '\')">' + (t.status==='done'?'✓':'') + '</button>'
-        + '<span class="todo-text">' + esc(t.text) + '</span>'
-        + '<span class="status-badge ' + badgeClass + '">' + badgeLabel + '</span>'
-        + '<button class="todo-del" onclick="deleteTodo(\'' + t.id + '\')">🗑</button>';
+  const groups={need:{label:'진행 필요',color:'#FBBF24',items:[]},scheduled:{label:'진행 예정',color:'#A78BFA',items:[]},done:{label:'진행 완료',color:'#34D399',items:[]}};
+  Object.values(todos).forEach(t=>{if(groups[t.status])groups[t.status].items.push(t);});
+  const container=document.getElementById('todoList'); container.innerHTML='';
+  let hasAny=false;
+  Object.entries(groups).forEach(([key,g])=>{
+    if(!g.items.length) return; hasAny=true;
+    const wrap=document.createElement('div'); wrap.className='status-group';
+    wrap.innerHTML='<div class="status-header"><div class="status-hdot" style="background:'+g.color+'"></div>'+g.label+'<span class="status-count">'+g.items.length+'</span></div>';
+    g.items.forEach(t=>{
+      const author=t.author||'junpyo';
+      const badgeClass={need:'badge-need',scheduled:'badge-scheduled',done:'badge-done'}[t.status];
+      const badgeLabel={need:'진행 필요',scheduled:'진행 예정',done:'진행 완료'}[t.status];
+      const div=document.createElement('div');
+      div.className='todo-item by-'+author+(t.status==='done'?' done':'');
+      div.innerHTML='<button class="todo-check '+(t.status==='done'?'done':'')+'" onclick="toggleDone(\''+t.id+'\')">'+(t.status==='done'?'✓':'')+'</button>'
+        +'<div class="todo-info"><div class="todo-text">'+esc(t.text)+'</div><div class="todo-author '+author+'">'+(author==='junpyo'?'💗 준표':'💙 민경')+'</div></div>'
+        +'<span class="status-badge '+badgeClass+'">'+badgeLabel+'</span>'
+        +'<button class="todo-del" onclick="deleteTodo(\''+t.id+'\')">🗑</button>';
       wrap.appendChild(div);
     });
     container.appendChild(wrap);
   });
-  if (!hasAny) container.innerHTML = '<div class="empty"><span class="empty-icon">🌸</span>아직 할 일이 없어요.<br>위에서 추가해보세요!</div>';
+  if(!hasAny) container.innerHTML='<div class="empty"><span class="empty-icon">🌸</span>아직 할 일이 없어요.<br>위에서 추가해보세요!</div>';
 }
 
 // ── CALENDAR ──
 window.changeMonth = function(d) {
-  calMonth += d;
-  if (calMonth > 11) { calMonth = 0; calYear++; }
-  if (calMonth < 0)  { calMonth = 11; calYear--; }
+  calMonth+=d;
+  if(calMonth>11){calMonth=0;calYear++;} if(calMonth<0){calMonth=11;calYear--;}
   renderCalendar();
 };
 
-function renderCalendar() {
-  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-  document.getElementById('calTitle').textContent = calYear + '년 ' + months[calMonth];
-  const grid = document.getElementById('weekGrid');
-  grid.innerHTML = '';
-  ['일','월','화','수','목','금','토'].forEach(d => {
-    const el = document.createElement('div'); el.className = 'week-day-label'; el.textContent = d; grid.appendChild(el);
-  });
-  const first = new Date(calYear, calMonth, 1);
-  const last  = new Date(calYear, calMonth+1, 0);
-  const todayKey = toKey(today);
-  for (let i = 0; i < first.getDay(); i++) {
-    const el = document.createElement('div'); el.className = 'week-day other-month';
-    el.textContent = new Date(calYear, calMonth, -first.getDay()+i+1).getDate(); grid.appendChild(el);
-  }
-  for (let d = 1; d <= last.getDate(); d++) {
-    const key = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
-    const el = document.createElement('div');
-    let cls = 'week-day';
-    if (key === todayKey) cls += ' today';
-    else if (key === selectedDate) cls += ' selected';
-    el.className = cls; el.textContent = d;
-    const dayEvs = events[key];
-    if (dayEvs && Object.keys(dayEvs).length) {
-      const dots = document.createElement('div'); dots.className = 'dot-row';
-      for (let i = 0; i < Math.min(Object.keys(dayEvs).length, 3); i++) {
-        const dot = document.createElement('div'); dot.className = 'edot'; dots.appendChild(dot);
+// get all events that span a given key
+function getEventsForKey(key) {
+  const result=[];
+  Object.keys(events).forEach(dk=>{
+    Object.values(events[dk]||{}).forEach(ev=>{
+      if(ev.type==='multi' && ev.startDate && ev.endDate) {
+        if(key>=ev.startDate && key<=ev.endDate) result.push({...ev, _dk:dk});
+      } else if(ev.type==='allday') {
+        const d=ev.alldayDate||dk;
+        if(d===key) result.push({...ev, _dk:dk});
+      } else {
+        if(dk===key) result.push({...ev, _dk:dk});
       }
-      el.appendChild(dots);
-    }
-    el.onclick = () => selectDate(key, d);
-    grid.appendChild(el);
+    });
+  });
+  return result;
+}
+
+function renderCalendar() {
+  const months=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  document.getElementById('calTitle').textContent=calYear+'년 '+months[calMonth];
+  const daynames=document.getElementById('calDaynames'); daynames.innerHTML='';
+  ['일','월','화','수','목','금','토'].forEach(d=>{ const el=document.createElement('div'); el.className='cal-dayname'; el.textContent=d; daynames.appendChild(el); });
+
+  const first=new Date(calYear,calMonth,1);
+  const last=new Date(calYear,calMonth+1,0);
+  const todayKey=toKey(today);
+  const weeks=document.getElementById('calWeeks'); weeks.innerHTML='';
+
+  // collect multi-day events for bar rendering
+  const multiEvents=[];
+  Object.keys(events).forEach(dk=>{
+    Object.values(events[dk]||{}).forEach(ev=>{
+      if(ev.type==='multi' && ev.startDate && ev.endDate) multiEvents.push(ev);
+    });
+  });
+
+  let dayOfWeek=first.getDay();
+  let days=[];
+  // prev month fill
+  for(let i=0;i<dayOfWeek;i++){
+    const d=new Date(calYear,calMonth,-dayOfWeek+i+1);
+    days.push({date:d,key:toKey(d),otherMonth:true});
+  }
+  for(let d=1;d<=last.getDate();d++){
+    const date=new Date(calYear,calMonth,d);
+    days.push({date,key:toKey(date),otherMonth:false});
+  }
+  // pad to complete weeks
+  while(days.length%7!==0){
+    const d=new Date(calYear,calMonth+1,days.length-last.getDate()-dayOfWeek+1);
+    days.push({date:d,key:toKey(d),otherMonth:true});
+  }
+
+  // build bar layout per row
+  for(let w=0;w<days.length/7;w++){
+    const weekDays=days.slice(w*7,(w+1)*7);
+    const weekEl=document.createElement('div'); weekEl.className='cal-week';
+
+    weekDays.forEach(({date,key,otherMonth})=>{
+      const cell=document.createElement('div');
+      cell.className='cal-day'+(otherMonth?' other-month':'');
+      const num=document.createElement('div'); num.className='cal-day-num';
+      num.textContent=date.getDate();
+      if(key===todayKey) num.classList.add('today');
+      else if(key===selectedDate) num.classList.add('selected');
+      num.onclick=()=>selectDate(key,date.getDate());
+      cell.appendChild(num);
+
+      // single-day dots
+      const singleEvs=Object.values(events[key]||{}).filter(e=>e.type!=='multi');
+      if(singleEvs.length){
+        const dots=document.createElement('div'); dots.className='cal-dots';
+        singleEvs.slice(0,3).forEach(ev=>{
+          const dot=document.createElement('div'); dot.className='cal-dot';
+          dot.style.background=(ev.author==='minkyung')?'#60A5FA':'#FF6B8A';
+          dots.appendChild(dot);
+        });
+        cell.appendChild(dots);
+      }
+      weekEl.appendChild(cell);
+    });
+
+    // multi-day bars per week row
+    const barsContainer=document.createElement('div'); barsContainer.className='cal-bars';
+    // max 3 bar lanes
+    const lanes=[null,null,null];
+    multiEvents.forEach(ev=>{
+      const evStart=ev.startDate, evEnd=ev.endDate;
+      const weekStart=weekDays[0].key, weekEnd=weekDays[6].key;
+      if(evEnd<weekStart||evStart>weekEnd) return;
+      const visStart=evStart<weekStart?weekStart:evStart;
+      const visEnd=evEnd>weekEnd?weekEnd:evEnd;
+      const startIdx=weekDays.findIndex(d=>d.key===visStart);
+      const endIdx=weekDays.findIndex(d=>d.key===visEnd);
+      if(startIdx<0||endIdx<0) return;
+      // find lane
+      let lane=lanes.findIndex(l=>l===null||l<visStart);
+      if(lane<0) lane=0;
+      lanes[lane]=visEnd;
+      const bar=document.createElement('div');
+      const isStart=evStart>=weekStart; const isEnd=evEnd<=weekEnd;
+      let cls='cal-bar '+(ev.author==='minkyung'?'minkyung':'junpyo');
+      if(isStart&&isEnd) cls+=' bar-start bar-end';
+      else if(isStart) cls+=' bar-start';
+      else if(isEnd) cls+=' bar-end';
+      else cls+=' bar-mid';
+      bar.className=cls;
+      bar.title=ev.title;
+      // position
+      const cellW=100/7;
+      bar.style.left=(startIdx*cellW)+'%';
+      bar.style.width=((endIdx-startIdx+1)*cellW)+'%';
+      bar.style.top=(lane*10)+'px';
+      bar.style.position='absolute';
+      bar.onclick=()=>{ selectDate(visStart,keyToDate(visStart).getDate()); };
+      barsContainer.appendChild(bar);
+    });
+    weekEl.appendChild(barsContainer);
+    weekEl.style.paddingBottom='36px';
+    weeks.appendChild(weekEl);
   }
 }
 
-function selectDate(key, d) {
-  selectedDate = key;
-  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-  const label = key === toKey(today) ? '오늘' : calYear + '년 ' + months[calMonth] + ' ' + d + '일';
-  document.getElementById('selectedDateLabel').textContent = label + ' 일정';
-  renderCalendar(); renderTimeline();
+function selectDate(key,d) {
+  selectedDate=key;
+  const months=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const kd=keyToDate(key);
+  const label=key===toKey(today)?'오늘':kd.getFullYear()+'년 '+months[kd.getMonth()]+' '+kd.getDate()+'일';
+  document.getElementById('selectedDateLabel').textContent=label+' 일정';
+  renderCalendar(); renderTimeline(); renderAlldaySection();
+}
+
+// ── ALL-DAY SECTION ──
+function renderAlldaySection() {
+  const section=document.getElementById('alldaySection'); section.innerHTML='';
+  const alldayEvs=[];
+  // allday events for selected date
+  Object.keys(events).forEach(dk=>{
+    Object.values(events[dk]||{}).forEach(ev=>{
+      if(ev.type==='allday'){
+        const d=ev.alldayDate||dk;
+        if(d===selectedDate) alldayEvs.push({...ev,_dk:dk});
+      }
+      if(ev.type==='multi'&&ev.startDate&&ev.endDate){
+        if(selectedDate>=ev.startDate&&selectedDate<=ev.endDate) alldayEvs.push({...ev,_dk:dk});
+      }
+    });
+  });
+  if(!alldayEvs.length) return;
+  const wrap=document.createElement('div'); wrap.className='allday-section';
+  wrap.innerHTML='<div class="allday-label">📌 종일·다일 일정</div>';
+  alldayEvs.forEach(ev=>{
+    const author=ev.author||'junpyo';
+    const banner=document.createElement('div'); banner.className='allday-banner '+author;
+    let label=ev.type==='multi'?ev.startDate+' ~ '+ev.endDate:'하루 종일';
+    banner.innerHTML='<span style="flex:1">'+esc(ev.title)+'</span>'
+      +'<span style="font-size:11px;opacity:0.7">'+label+'</span>'
+      +'<button style="background:none;border:none;cursor:pointer;font-size:14px;opacity:0.5;padding:0 2px" onclick="openEventModal(\''+ev.id+'\',\''+ev._dk+'\')">✏️</button>'
+      +'<button style="background:none;border:none;cursor:pointer;font-size:14px;opacity:0.5;padding:0 2px" onclick="deleteEvent(\''+ev._dk+'\',\''+ev.id+'\')">🗑</button>';
+    wrap.appendChild(banner);
+  });
+  section.appendChild(wrap);
 }
 
 // ── TIMELINE ──
 function renderTimeline() {
-  const tl = document.getElementById('timeline');
-  tl.innerHTML = '';
-  const dayEvs = events[selectedDate] || {};
-  const evList = Object.values(dayEvs);
-  for (let h = 0; h < 24; h++) {
-    const hourEvs = evList.filter(e => Number(e.hour) === h);
-    if (h < 7 && !hourEvs.length) continue;
-    const row = document.createElement('div'); row.className = 'time-row';
-    row.innerHTML = '<div class="time-label">' + String(h).padStart(2,'0') + ':00</div><div class="time-events"></div>';
-    const slotEl = row.querySelector('.time-events');
-    hourEvs.sort((a,b) => a.min - b.min).forEach(ev => {
-      const chip = document.createElement('div'); chip.className = 'event-chip';
-      const lt = ev.todoId ? todos[ev.todoId] : null;
-      chip.innerHTML = '<span>' + String(h).padStart(2,'0') + ':' + ev.min + ' ' + esc(ev.title) + '</span>'
-        + (lt ? '<span class="e-badge">📌 ' + esc(lt.text.slice(0,10)) + (lt.text.length>10?'…':'') + '</span>' : '')
-        + '<button class="e-del" onclick="deleteEvent(\'' + selectedDate + '\',\'' + ev.id + '\')">×</button>';
+  const tl=document.getElementById('timeline'); tl.innerHTML='';
+  const dayEvs=events[selectedDate]||{};
+  const evList=Object.values(dayEvs).filter(e=>e.type==='timed'||!e.type);
+  for(let h=0;h<24;h++){
+    const hourEvs=evList.filter(e=>Number(e.hour)===h);
+    if(h<7&&!hourEvs.length) continue;
+    const row=document.createElement('div'); row.className='time-row';
+    row.innerHTML='<div class="time-label">'+String(h).padStart(2,'0')+':00</div><div class="time-events"></div>';
+    const slotEl=row.querySelector('.time-events');
+    hourEvs.sort((a,b)=>a.min-b.min).forEach(ev=>{
+      const author=ev.author||'junpyo';
+      const lt=ev.todoId?todos[ev.todoId]:null;
+      const chip=document.createElement('div'); chip.className='event-chip by-'+author;
+      chip.innerHTML='<div class="event-chip-top">'
+        +'<span class="event-chip-title">'+String(h).padStart(2,'0')+':'+ev.min+' '+esc(ev.title)+'</span>'
+        +'<span class="event-author-tag '+author+'">'+(author==='junpyo'?'💗 준표':'💙 민경')+'</span>'
+        +'<div class="event-actions">'
+        +'<button class="e-act" onclick="openEventModal(\''+ev.id+'\',\''+selectedDate+'\')" title="수정">✏️</button>'
+        +'<button class="e-act" onclick="deleteEvent(\''+selectedDate+'\',\''+ev.id+'\')" title="삭제">🗑</button>'
+        +'</div></div>'
+        +(ev.memo?'<div style="font-size:12px;opacity:0.7;margin-top:4px">'+esc(ev.memo)+'</div>':'')
+        +(lt?'<div><span class="event-badge '+author+'">📌 '+esc(lt.text.slice(0,14))+(lt.text.length>14?'…':'')+'</span></div>':'')
+        +(ev.image?'<div class="event-img-wrap"><img class="event-img" src="'+ev.image+'" onclick="openImgPreview(\''+ev.id+'\',\''+selectedDate+'\')"></div>':'');
       slotEl.appendChild(chip);
     });
     tl.appendChild(row);
   }
-  if (!tl.children.length) tl.innerHTML = '<div class="empty"><span class="empty-icon">🗓️</span>이 날 일정이 없어요.<br>+ 일정 추가를 눌러보세요!</div>';
+  if(!tl.children.length) tl.innerHTML='<div class="empty"><span class="empty-icon">🗓️</span>이 날 시간 지정 일정이 없어요.</div>';
 }
 
-window.deleteEvent = function(dateKey, id) {
-  const ev = (events[dateKey] || {})[id];
-  if (ev && ev.todoId) {
-    let otherRef = false;
-    Object.keys(events).forEach(dk => {
-      Object.values(events[dk] || {}).forEach(e => { if (e.id !== id && e.todoId === ev.todoId) otherRef = true; });
-    });
-    const t = todos[ev.todoId];
-    if (!otherRef && t && t.status === 'scheduled') update(ref(db, 'todos/' + ev.todoId), { status: 'need' });
+window.deleteEvent = function(dateKey,id) {
+  const ev=(events[dateKey]||{})[id];
+  if(ev&&ev.todoId){
+    let otherRef=false;
+    Object.keys(events).forEach(dk=>{ Object.values(events[dk]||{}).forEach(e=>{ if(e.id!==id&&e.todoId===ev.todoId) otherRef=true; }); });
+    const t=todos[ev.todoId];
+    if(!otherRef&&t&&t.status==='scheduled') update(ref(db,'todos/'+ev.todoId),{status:'need'});
   }
   setSyncStatus('syncing');
-  remove(ref(db, 'events/' + dateKey + '/' + id));
+  remove(ref(db,'events/'+dateKey+'/'+id));
 };
 
 // ── EVENT MODAL ──
-window.openEventModal = function() {
-  const list = document.getElementById('todoSelectList');
-  list.innerHTML = '';
-  selectedTodoId = null;
-  const none = document.createElement('div');
-  none.className = 'todo-select-item selected'; none.textContent = '✕ 연결 안 함';
-  none.onclick = () => { selectedTodoId = null; document.querySelectorAll('.todo-select-item').forEach(x => x.classList.remove('selected')); none.classList.add('selected'); };
+window.selectType = function(type) {
+  currentEventType=type;
+  ['timed','allday','multi'].forEach(t=>{
+    document.getElementById('typeBtn-'+t).classList.toggle('active',t===type);
+    document.getElementById(t+'Fields').classList.toggle('section-hidden',t!==type);
+  });
+};
+
+window.openEventModal = function(evId, dateKey) {
+  editingEventId=evId||null; editingEventDateKey=dateKey||null;
+  pendingImgBase64=null;
+  document.getElementById('imgPreviewThumb').style.display='none';
+  document.getElementById('imgFileInput').value='';
+  document.getElementById('eventTitle').value='';
+  document.getElementById('eventMemo').value='';
+  document.getElementById('eventDate').value=selectedDate;
+  document.getElementById('eventAlldayDate').value=selectedDate;
+  document.getElementById('eventStartDate').value=selectedDate;
+  document.getElementById('eventEndDate').value=selectedDate;
+
+  // populate todo list
+  const list=document.getElementById('todoSelectList'); list.innerHTML='';
+  selectedTodoId=null;
+  const none=document.createElement('div'); none.className='todo-select-item selected'; none.textContent='✕ 연결 안 함';
+  none.onclick=()=>{ selectedTodoId=null; document.querySelectorAll('.todo-select-item').forEach(x=>x.classList.remove('selected')); none.classList.add('selected'); };
   list.appendChild(none);
-  const needTodos = Object.values(todos).filter(t => t.status !== 'done');
-  if (!needTodos.length) {
-    const el = document.createElement('div'); el.className = 'todo-select-item';
-    el.style.color = 'var(--text2)'; el.style.cursor = 'default'; el.textContent = '연결할 할 일이 없어요'; list.appendChild(el);
+  Object.values(todos).filter(t=>t.status!=='done').forEach(t=>{
+    const item=document.createElement('div'); item.className='todo-select-item';
+    item.textContent=(t.author==='minkyung'?'💙 ':'💗 ')+t.text;
+    item.onclick=()=>{ selectedTodoId=t.id; document.querySelectorAll('.todo-select-item').forEach(x=>x.classList.remove('selected')); item.classList.add('selected'); };
+    list.appendChild(item);
+  });
+
+  if(evId && dateKey) {
+    // editing
+    const ev=(events[dateKey]||{})[evId];
+    if(!ev) return;
+    document.getElementById('eventModalTitle').textContent='✏️ 일정 수정';
+    document.getElementById('eventConfirmBtn').textContent='수정하기';
+    document.getElementById('eventTitle').value=ev.title||'';
+    document.getElementById('eventMemo').value=ev.memo||'';
+    const type=ev.type||'timed';
+    selectType(type);
+    if(type==='timed'){
+      document.getElementById('eventDate').value=dateKey;
+      document.getElementById('eventHour').value=ev.hour||0;
+      document.getElementById('eventMin').value=ev.min||'00';
+    } else if(type==='allday'){
+      document.getElementById('eventAlldayDate').value=ev.alldayDate||dateKey;
+    } else if(type==='multi'){
+      document.getElementById('eventStartDate').value=ev.startDate||dateKey;
+      document.getElementById('eventEndDate').value=ev.endDate||dateKey;
+    }
+    if(ev.todoId){ selectedTodoId=ev.todoId; document.querySelectorAll('.todo-select-item').forEach(x=>{ if(x.textContent.includes(todos[ev.todoId]?.text)) x.classList.add('selected'); }); }
+    if(ev.image){ document.getElementById('imgPreviewThumb').src=ev.image; document.getElementById('imgPreviewThumb').style.display='block'; pendingImgBase64=ev.image; }
   } else {
-    needTodos.forEach(t => {
-      const item = document.createElement('div'); item.className = 'todo-select-item';
-      item.textContent = '📌 ' + t.text;
-      item.onclick = () => { selectedTodoId = t.id; document.querySelectorAll('.todo-select-item').forEach(x => x.classList.remove('selected')); item.classList.add('selected'); };
-      list.appendChild(item);
-    });
+    document.getElementById('eventModalTitle').textContent='📅 일정 추가';
+    document.getElementById('eventConfirmBtn').textContent='추가하기';
+    selectType('timed');
   }
   document.getElementById('eventModal').classList.add('open');
-  setTimeout(() => document.getElementById('eventTitle').focus(), 100);
+  setTimeout(()=>document.getElementById('eventTitle').focus(),100);
 };
 
 window.closeEventModal = function() {
   document.getElementById('eventModal').classList.remove('open');
-  document.getElementById('eventTitle').value = '';
+  editingEventId=null; editingEventDateKey=null; pendingImgBase64=null;
+};
+
+window.handleImgSelect = function(e) {
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      const MAX=800; let w=img.width,h=img.height;
+      if(w>MAX||h>MAX){ if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;} }
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      pendingImgBase64=canvas.toDataURL('image/jpeg',0.7);
+      const thumb=document.getElementById('imgPreviewThumb');
+      thumb.src=pendingImgBase64; thumb.style.display='block';
+    };
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
 };
 
 window.confirmEvent = function() {
-  const title = document.getElementById('eventTitle').value.trim();
-  const hour  = document.getElementById('eventHour').value;
-  const min   = document.getElementById('eventMin').value;
-  if (!title) { document.getElementById('eventTitle').focus(); return; }
-  const id = 'e' + Date.now();
+  const title=document.getElementById('eventTitle').value.trim();
+  if(!title){ document.getElementById('eventTitle').focus(); return; }
+  const memo=document.getElementById('eventMemo').value.trim();
   setSyncStatus('syncing');
-  set(ref(db, 'events/' + selectedDate + '/' + id), { id, title, hour: Number(hour), min, todoId: selectedTodoId || null });
-  if (selectedTodoId) update(ref(db, 'todos/' + selectedTodoId), { status: 'scheduled' });
+
+  let evData={title,memo:memo||null,todoId:selectedTodoId||null,author:currentUser,type:currentEventType};
+  if(pendingImgBase64) evData.image=pendingImgBase64;
+
+  let dateKey=selectedDate;
+  if(currentEventType==='timed'){
+    dateKey=document.getElementById('eventDate').value||selectedDate;
+    evData.hour=Number(document.getElementById('eventHour').value);
+    evData.min=document.getElementById('eventMin').value;
+  } else if(currentEventType==='allday'){
+    dateKey=document.getElementById('eventAlldayDate').value||selectedDate;
+    evData.alldayDate=dateKey;
+  } else if(currentEventType==='multi'){
+    evData.startDate=document.getElementById('eventStartDate').value||selectedDate;
+    evData.endDate=document.getElementById('eventEndDate').value||selectedDate;
+    dateKey=evData.startDate;
+  }
+
+  if(editingEventId && editingEventDateKey){
+    // update
+    if(editingEventDateKey!==dateKey){
+      remove(ref(db,'events/'+editingEventDateKey+'/'+editingEventId));
+      evData.id=editingEventId;
+      set(ref(db,'events/'+dateKey+'/'+editingEventId),evData);
+    } else {
+      update(ref(db,'events/'+dateKey+'/'+editingEventId),evData);
+    }
+    showToast('✏️ 일정이 수정됐어요!');
+  } else {
+    const id='e'+Date.now(); evData.id=id;
+    set(ref(db,'events/'+dateKey+'/'+id),evData);
+    showToast('📅 일정이 추가됐어요!');
+  }
+  if(selectedTodoId) update(ref(db,'todos/'+selectedTodoId),{status:'scheduled'});
   closeEventModal();
-  showToast('📅 일정이 추가됐어요!');
 };
+
+// ── PHOTOS TAB ──
+function renderPhotos() {
+  const container=document.getElementById('photosList'); container.innerHTML='';
+  // collect all photos: from events + dedicated photos
+  const allPhotos=[];
+
+  // from events
+  Object.keys(events).forEach(dk=>{
+    Object.values(events[dk]||{}).forEach(ev=>{
+      if(ev.image) allPhotos.push({key:dk,src:ev.image,label:ev.title,id:ev.id,type:'event'});
+    });
+  });
+  // from dedicated photos
+  Object.keys(photos).forEach(dk=>{
+    Object.values(photos[dk]||{}).forEach(p=>{
+      allPhotos.push({key:dk,src:p.image,label:p.caption||'',id:p.id,type:'photo'});
+    });
+  });
+
+  if(!allPhotos.length){
+    container.innerHTML='<div class="no-photos"><span style="font-size:36px;display:block;margin-bottom:8px">📷</span>아직 사진이 없어요.<br>일정에 사진을 추가하거나<br>날짜를 선택해서 추억 사진을 올려보세요!</div>';
+    return;
+  }
+
+  // group by month
+  const byMonth={};
+  allPhotos.forEach(p=>{
+    const m=p.key.slice(0,7);
+    if(!byMonth[m]) byMonth[m]=[];
+    byMonth[m].push(p);
+  });
+
+  // group by date within month
+  Object.keys(byMonth).sort((a,b)=>b.localeCompare(a)).forEach(month=>{
+    const monthEl=document.createElement('div'); monthEl.className='photos-month';
+    const [y,m]=month.split('-');
+    const months=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    monthEl.innerHTML='<div class="photos-month-title">📅 '+y+'년 '+months[+m-1]+'</div>';
+
+    const byDate={};
+    byMonth[month].forEach(p=>{ if(!byDate[p.key]) byDate[p.key]=[]; byDate[p.key].push(p); });
+
+    Object.keys(byDate).sort((a,b)=>b.localeCompare(a)).forEach(dk=>{
+      const dateEl=document.createElement('div'); dateEl.className='photos-date-group';
+      const d=keyToDate(dk);
+      const days=['일','월','화','수','목','금','토'];
+      dateEl.innerHTML='<div class="photos-date-label">'+d.getDate()+'일 ('+days[d.getDay()]+')'
+        +'<button style="margin-left:auto;background:var(--pink-light);color:var(--pink);border:none;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit" onclick="openPhotoUpload(\''+dk+'\')">+ 사진 추가</button></div>';
+      const grid=document.createElement('div'); grid.className='photos-grid';
+      byDate[dk].forEach(p=>{
+        const img=document.createElement('img'); img.className='photo-thumb'; img.src=p.src;
+        img.onclick=()=>openImgPreviewSrc(p.src);
+        grid.appendChild(img);
+      });
+      dateEl.appendChild(grid);
+      monthEl.appendChild(dateEl);
+    });
+    container.appendChild(monthEl);
+  });
+
+  // past dates without photos — add upload button for calendar current selected date
+  if(selectedDate){
+    const todayKey=toKey(today);
+    if(selectedDate<=todayKey){
+      const existing=container.querySelector('[data-dk="'+selectedDate+'"]');
+      if(!existing){
+        const note=document.createElement('div');
+        note.style.cssText='text-align:center;padding:1rem;color:var(--text2);font-size:13px';
+        note.innerHTML='선택한 날짜('+selectedDate+')의 사진도 추가할 수 있어요! <button style="background:var(--pink);color:white;border:none;border-radius:99px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit;margin-left:6px" onclick="openPhotoUpload(\''+selectedDate+'\')">+ 사진 추가</button>';
+        container.insertBefore(note, container.firstChild);
+      }
+    }
+  }
+}
+
+let photoUploadDateKey=null;
+window.openPhotoUpload = function(dk) {
+  photoUploadDateKey=dk;
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.multiple=true;
+  inp.onchange=e=>handlePhotoUpload(e);
+  inp.click();
+};
+
+function handlePhotoUpload(e) {
+  const files=Array.from(e.target.files); if(!files.length) return;
+  let done=0;
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        const MAX=900; let w=img.width,h=img.height;
+        if(w>MAX||h>MAX){ if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;} }
+        canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        const base64=canvas.toDataURL('image/jpeg',0.75);
+        const id='p'+Date.now()+Math.random().toString(36).slice(2,6);
+        setSyncStatus('syncing');
+        set(ref(db,'photos/'+photoUploadDateKey+'/'+id),{id,image:base64,author:currentUser,ts:Date.now()});
+        done++;
+        if(done===files.length) showToast('📸 사진 '+done+'장이 추가됐어요!');
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+window.openImgPreview = function(evId, dateKey) {
+  const ev=(events[dateKey]||{})[evId]; if(!ev||!ev.image) return;
+  openImgPreviewSrc(ev.image);
+};
+window.openImgPreviewSrc = function(src) {
+  document.getElementById('imgPreviewFull').src=src;
+  document.getElementById('imgPreviewOverlay').classList.add('open');
+};
+window.closeImgPreview = function() { document.getElementById('imgPreviewOverlay').classList.remove('open'); };
 
 // ── PAGE SWITCH ──
 window.switchPage = function(name) {
-  ['todo','cal'].forEach(n => {
-    document.getElementById('tab-' + n).classList.toggle('active', n === name);
-    document.getElementById('page-' + n).classList.toggle('active', n === name);
+  ['todo','cal','photos'].forEach(n=>{
+    document.getElementById('tab-'+n).classList.toggle('active',n===name);
+    document.getElementById('page-'+n).classList.toggle('active',n===name);
   });
+  if(name==='photos') renderPhotos();
 };
 
 // ── INIT ──
-calYear = today.getFullYear(); calMonth = today.getMonth(); selectedDate = toKey(today);
-const hSel = document.getElementById('eventHour');
-const mSel = document.getElementById('eventMin');
-for (let h = 0; h < 24; h++) {
-  const o = document.createElement('option'); o.value = h; o.textContent = String(h).padStart(2,'0') + '시'; hSel.appendChild(o);
-}
-hSel.value = today.getHours();
-['00','10','20','30','40','50'].forEach(m => {
-  const o = document.createElement('option'); o.value = m; o.textContent = m + '분'; mSel.appendChild(o);
-});
+calYear=today.getFullYear(); calMonth=today.getMonth(); selectedDate=toKey(today);
+const hSel=document.getElementById('eventHour'),mSel=document.getElementById('eventMin');
+for(let h=0;h<24;h++){ const o=document.createElement('option'); o.value=h; o.textContent=String(h).padStart(2,'0')+'시'; hSel.appendChild(o); }
+hSel.value=today.getHours();
+['00','10','20','30','40','50'].forEach(m=>{ const o=document.createElement('option'); o.value=m; o.textContent=m+'분'; mSel.appendChild(o); });
+selectType('timed');
 </script>
 </body>
 </html>
