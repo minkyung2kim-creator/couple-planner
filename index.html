@@ -344,6 +344,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:#FFF5F7;color:var(--text);
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getDatabase, ref, onValue, set, remove, update, push } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDVM3lOyUnz8CiBB2RUisO87DS2n9-hLwg",
@@ -356,6 +357,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
 
 let currentUser = localStorage.getItem('couple_user') || 'junpyo';
 let todos = {}, events = {}, photos = {};
@@ -389,20 +391,29 @@ window.switchUser = function(u) {
 };
 document.getElementById('btn-'+currentUser).classList.add('active');
 
-// Firebase
-onValue(ref(db,'todos'), snap => {
-  todos = snap.val()||{};
-  renderTodos(); renderTimeline();
-  document.getElementById('loadingScreen').classList.add('hide');
-  setSyncStatus('connected');
+// Firebase — 익명 로그인 후 리스너 시작
+signInAnonymously(auth).catch(err => {
+  console.error('Auth error:', err);
+  document.getElementById('loadingScreen').innerHTML = '<div style="font-size:36px">⚠️</div><div style="font-size:14px;color:#6B7280;text-align:center">연결에 실패했어요.<br>잠시 후 새로고침 해주세요.</div>';
 });
-onValue(ref(db,'events'), snap => {
-  events = snap.val()||{};
-  renderCalendar(); renderTimeline(); renderAlldaySection();
-});
-onValue(ref(db,'photos'), snap => {
-  photos = snap.val()||{};
-  if(document.getElementById('page-photos').classList.contains('active')) renderPhotos();
+
+onAuthStateChanged(auth, user => {
+  if (!user) return;
+  // 인증 완료 후 데이터 구독
+  onValue(ref(db,'todos'), snap => {
+    todos = snap.val()||{};
+    renderTodos(); renderTimeline();
+    document.getElementById('loadingScreen').classList.add('hide');
+    setSyncStatus('connected');
+  });
+  onValue(ref(db,'events'), snap => {
+    events = snap.val()||{};
+    renderCalendar(); renderTimeline(); renderAlldaySection();
+  });
+  onValue(ref(db,'photos'), snap => {
+    photos = snap.val()||{};
+    if(document.getElementById('page-photos').classList.contains('active')) renderPhotos();
+  });
 });
 
 // ── TODOS ──
